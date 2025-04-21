@@ -8,7 +8,8 @@ namespace Messenger.App.Services
 {
     public interface IAPIRequest
     {
-        Task<T> GetDataAsync<T>(string endpoint);
+        Task<T?> GetDataAsync<T>(string endpoint);
         Task PostDataAsync(string endpoint, object data);
+        Task<T?> PostDataAsync<T>(string endpoint, object data);
     }
 }

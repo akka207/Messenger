@@ -1,21 +1,26 @@
 ﻿using Messenger.App.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Messenger.App.Services.Implementations;
 
 namespace Messenger.App.ViewModels
 {
     public class AuthorizeVM
     {
-        public readonly IDataController DataController;
-        public readonly IValidators Validators;
+        public event EventHandler? OnOpenChatWindow;
 
-        public AuthorizeVM(IDataController dataController, IValidators validators)
+        public readonly IAuthHandler DataController;
+        public readonly IValidators Validators;
+        public readonly ChatsManager ChatsManager;
+
+        public AuthorizeVM(IAuthHandler dataController, IValidators validators, ChatsManager chatsManager)
         {
             DataController = dataController;
             Validators = validators;
+            ChatsManager = chatsManager;
+        }
+
+        public void OpenChatWindow()
+        {
+            OnOpenChatWindow?.Invoke(this, EventArgs.Empty);
         }
     }
 }

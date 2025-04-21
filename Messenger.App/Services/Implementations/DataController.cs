@@ -1,8 +1,10 @@
 ﻿using Messenger.App.DTO;
+using Messenger.Models;
+using Messenger.Models.DTO;
 
 namespace Messenger.App.Services.Implementations
 {
-    public class DataController : IDataController
+    public class DataController : IAuthHandler, IMessagesHandler
     {
         private readonly IAPIRequest _apiRequest;
 
@@ -11,14 +13,24 @@ namespace Messenger.App.Services.Implementations
             _apiRequest = apiRequest;
         }
 
-        public async Task LogInUserAsync(UserLogInDTO user)
+        public async Task<UserClientDTO?> LogInUserAsync(UserLogInDTO user)
         {
-
+            return await _apiRequest.PostDataAsync<UserClientDTO>("auth/login", user);
         }
 
-        public async Task SignUpUserAsync(UserSignUpDTO user)
+        public async Task<UserClientDTO?> SignUpUserAsync(UserSignUpDTO user)
         {
-            await _apiRequest.PostDataAsync("signup", user);
+            return await _apiRequest.PostDataAsync<UserClientDTO>("auth/signup", user);
+        }
+
+        public async Task SendMessageAsync(Message message)
+        {
+            await _apiRequest.PostDataAsync("messages", message);
+        }
+
+        public async Task<List<Message>> GetMessagesAsync(Chat chat)
+        {
+            return await _apiRequest.GetDataAsync<List<Message>>($"messages/{chat.Id}") ?? new();
         }
     }
 }

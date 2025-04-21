@@ -1,4 +1,5 @@
 ﻿using Messenger.App.DTO;
+using Messenger.Models.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Messenger.App.Services
 {
-    public interface IDataController
+    public interface IAuthHandler
     {
-        Task SignUpUserAsync(UserSignUpDTO user);
-        Task LogInUserAsync(UserLogInDTO user);
+        Task<UserClientDTO?> LogInUserAsync(UserLogInDTO user);
+        Task<UserClientDTO?> SignUpUserAsync(UserSignUpDTO user);
     }
 }

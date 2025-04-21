@@ -1,4 +1,5 @@
 ﻿using Messenger.App.Services;
+using Messenger.App.Windows;
 using Messenger.App.Services.Implementations;
 using Messenger.App.ViewModels;
 using Microsoft.Extensions.Configuration;
@@ -16,18 +17,19 @@ namespace Messenger.App
             base.OnStartup(e);
             _serviceProvider = ConfigureServices();
 
-            var startupWindow = _serviceProvider.GetRequiredService<AuthorizeWindow>();
-            startupWindow.Show();
+            var windowManager = _serviceProvider.GetRequiredService<WindowManager>();
+            windowManager.Startup();
         }
 
         private static IServiceProvider ConfigureServices()
         {
             var services = new ServiceCollection();
 
-            // Services
             services.AddSingleton<IValidators, DataValidators>();
-            services.AddSingleton<IDataController, DataController>();
+            services.AddSingleton<IAuthHandler, DataController>();
+            services.AddSingleton<IMessagesHandler, DataController>();
             services.AddSingleton<IAPIRequest, APIRequest>();
+            services.AddSingleton<ChatsManager>();
             services.AddHttpClient();
 
             var configuration = new ConfigurationBuilder()
@@ -36,11 +38,14 @@ namespace Messenger.App
                 .Build();
             services.AddSingleton<IConfiguration>(configuration);
 
-            // Windows
+            services.AddSingleton<WindowManager>();
             services.AddSingleton<AuthorizeWindow>();
+            services.AddSingleton<ChatWindow>();
 
-            // VMs
+
             services.AddSingleton<AuthorizeVM>();
+            services.AddSingleton<ChatVM>();
+
 
             return services.BuildServiceProvider();
         }

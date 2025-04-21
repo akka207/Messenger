@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="Messenger.App.UserControls.ChatControls.UserLabelControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Messenger.App.UserControls.ChatControls"
+             mc:Ignorable="d" x:Name="control"
+             d:DesignHeight="100" d:DesignWidth="400">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0" Margin="2" BorderThickness="2" BorderBrush="Black" CornerRadius="5"/>
+        <Border Grid.Column="1" Margin="2" BorderThickness="2" BorderBrush="Black" CornerRadius="5"/>
+        
+        <TextBlock Grid.Column="0" Margin="10" Text="Icon" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Column="1" Margin="10" Text="{Binding ElementName=control, Path=UserName}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+    </Grid>
+</UserControl>
