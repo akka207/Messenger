@@ -1,5 +1,4 @@
 ﻿using Messenger.App.Services;
-using Messenger.App.Services.Implementations;
 
 namespace Messenger.App.ViewModels
 {
@@ -7,11 +6,11 @@ namespace Messenger.App.ViewModels
     {
         public event EventHandler? OnOpenChatWindow;
 
-        public readonly IAuthHandler DataController;
-        public readonly IValidators Validators;
+        public readonly DataController DataController;
+        public readonly DataValidators Validators;
         public readonly ChatsManager ChatsManager;
 
-        public AuthorizeVM(IAuthHandler dataController, IValidators validators, ChatsManager chatsManager)
+        public AuthorizeVM(DataController dataController, DataValidators validators, ChatsManager chatsManager)
         {
             DataController = dataController;
             Validators = validators;

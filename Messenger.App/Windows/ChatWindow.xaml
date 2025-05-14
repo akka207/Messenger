@@ -10,7 +10,11 @@
 
     <Window.Resources>
         <DataTemplate x:Key="users_ListBoxItem" DataType="{x:Type ListBoxItem}">
-            <controls:UserLabelControl UserName="{Binding Name}"/>
+            <controls:UserLabelControl UserName="{Binding ReceiverUser.Name}"/>
+        </DataTemplate>
+
+        <DataTemplate x:Key="messages_ListBoxItem" DataType="{x:Type ListBoxItem}">
+            <TextBlock Text="{Binding Text}"/>
         </DataTemplate>
     </Window.Resources>
 
@@ -31,15 +35,19 @@
             <Border Grid.Row="1" Margin="2" BorderThickness="2" BorderBrush="Black" CornerRadius="5"/>
             <Border Grid.Row="2" Margin="2" BorderThickness="2" BorderBrush="Black" CornerRadius="5"/>
 
-            <controls:UserLabelControl Grid.Row="0" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center" UserName="Derek"/>
+            <controls:UserLabelControl x:Name="currentUserLabel" Grid.Row="0" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Center"/>
             <TextBlock Grid.Row="0" Margin="5" Text="online" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+
+            <ScrollViewer Grid.Row="1" Margin="5">
+                <ItemsControl ItemsSource="{Binding ElementName=window, Path=Messages}" ItemTemplate="{StaticResource messages_ListBoxItem}"/>
+            </ScrollViewer>
 
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="5*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                
+
                 <TextBox x:Name="messageTextBox" Grid.Column="0" Margin="10" Width="Auto"/>
                 <Button Grid.Column="1" Content="Send" Margin="20" Click="SendButton_Click"/>
             </Grid>
@@ -57,7 +65,7 @@
             <TextBox Grid.Row="0" Margin="10" Width="Auto"/>
 
             <ScrollViewer Grid.Row="1" Margin="5">
-                <ItemsControl ItemsSource="{Binding ElementName=window, Path=Users}" ItemTemplate="{StaticResource users_ListBoxItem}"/>
+                <ItemsControl ItemsSource="{Binding ElementName=window, Path=Chats}" ItemTemplate="{StaticResource users_ListBoxItem}"/>
             </ScrollViewer>
         </Grid>
     </Grid>

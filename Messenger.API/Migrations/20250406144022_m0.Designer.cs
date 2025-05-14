@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Messenger.API.Migrations
 {
-    [DbContext(typeof(MessengerContext))]
+    [DbContext(typeof(MessengerDBContext))]
     [Migration("20250406144022_m0")]
     partial class m0
     {

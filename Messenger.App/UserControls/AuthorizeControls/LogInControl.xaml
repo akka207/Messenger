@@ -16,11 +16,11 @@
         <StackPanel Grid.Row="0" Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Login"/>
-                <TextBox x:Name="loginTextBox"/>
+                <TextBox x:Name="loginTextBox" Text="akka"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Password"/>
-                <TextBox x:Name="passwordTextBox"/>
+                <TextBox x:Name="passwordTextBox" Text="qwerty12"/>
             </StackPanel>
             <Button Content="Submit" Click="Button_LogIn_Click"/>
         </StackPanel>

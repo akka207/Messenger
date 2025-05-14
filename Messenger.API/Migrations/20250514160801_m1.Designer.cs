@@ -3,6 +3,7 @@ using System;
 using Messenger.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Messenger.API.Migrations
 {
     [DbContext(typeof(MessengerDBContext))]
-    partial class MessengerContextModelSnapshot : ModelSnapshot
+    [Migration("20250514160801_m1")]
+    partial class m1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.3");
@@ -21,15 +24,6 @@ namespace Messenger.API.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("LastChange")
-                        .HasColumnType("TEXT");
-
-                    b.Property<int>("User1Id")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("User2Id")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");

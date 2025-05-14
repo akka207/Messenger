@@ -2,13 +2,13 @@
 using Messenger.Models;
 using Messenger.Models.DTO;
 
-namespace Messenger.App.Services.Implementations
+namespace Messenger.App.Services
 {
-    public class DataController : IAuthHandler, IMessagesHandler
+    public class DataController
     {
-        private readonly IAPIRequest _apiRequest;
+        private readonly APIRequest _apiRequest;
 
-        public DataController(IAPIRequest apiRequest)
+        public DataController(APIRequest apiRequest)
         {
             _apiRequest = apiRequest;
         }
@@ -28,9 +28,14 @@ namespace Messenger.App.Services.Implementations
             await _apiRequest.PostDataAsync("messages", message);
         }
 
-        public async Task<List<Message>> GetMessagesAsync(Chat chat)
+        public async Task<List<Message>> GetMessagesAsync(int chatId)
         {
-            return await _apiRequest.GetDataAsync<List<Message>>($"messages/{chat.Id}") ?? new();
+            return await _apiRequest.GetDataAsync<List<Message>>($"messages?chatId={chatId}") ?? new();
+        }
+
+        public async Task<List<ChatClientDTO>> GetChatsForUserAsync(int userId)
+        {
+            return await _apiRequest.GetDataAsync<List<ChatClientDTO>>($"chats/orderedList/{userId}") ?? new();
         }
     }
 }

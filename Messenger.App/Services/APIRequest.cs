@@ -6,9 +6,9 @@ using System.Net.Http;
 using System.Text;
 
 
-namespace Messenger.App.Services.Implementations
+namespace Messenger.App.Services
 {
-    public class APIRequest : IAPIRequest
+    public class APIRequest
     {
         private readonly HttpClient _httpClient;
         private readonly IConfiguration _configuration;
@@ -24,7 +24,7 @@ namespace Messenger.App.Services.Implementations
             string? url = _configuration["APIURL"] + endpoint;
 
             var request = new HttpRequestMessage(HttpMethod.Get, url);
-            
+
             var responce = await _httpClient.SendAsync(request);
 
             if (responce.StatusCode == HttpStatusCode.OK)

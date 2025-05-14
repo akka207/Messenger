@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Messenger.API.Data
 {
-    public class MessengerContext:DbContext
+    public class MessengerDBContext:DbContext
     {
-        public MessengerContext(DbContextOptions<MessengerContext> options) : base(options) { }
+        public MessengerDBContext(DbContextOptions<MessengerDBContext> options) : base(options) { }
 
         public DbSet<Chat> Chats { get; set; }
         public DbSet<Message> Messages { get; set; }

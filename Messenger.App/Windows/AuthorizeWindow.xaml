@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Messenger.App.Windows"
         xmlns:authControls="clr-namespace:Messenger.App.UserControls.AuthorizeControls"
-        mc:Ignorable="d" x:Name="window" Loaded="window_Loaded"
+        mc:Ignorable="d" x:Name="window"
         Title="AuthorizeWindow" Height="400" Width="600">
     <Grid>
         <Grid.ColumnDefinitions>

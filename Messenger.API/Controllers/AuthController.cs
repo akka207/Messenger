@@ -10,8 +10,8 @@ namespace Messenger.API.Controllers
     [Route("api/{controller}")]
     public class AuthController : ControllerBase
     {
-        private readonly MessengerContext _context;
-        public AuthController(MessengerContext context)
+        private readonly MessengerDBContext _context;
+        public AuthController(MessengerDBContext context)
         {
             _context = context;
         }

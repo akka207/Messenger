@@ -1,6 +1,6 @@
-﻿namespace Messenger.App.Services.Implementations
+﻿namespace Messenger.App.Services
 {
-    class DataValidators : IValidators
+    public class DataValidators
     {
         public List<string> ValidatePassword(string password)
         {

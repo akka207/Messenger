@@ -5,17 +5,14 @@ namespace Messenger.App.Windows
 {
     public partial class AuthorizeWindow : Window
     {
-        private AuthorizeVM viewModel;
+        private readonly AuthorizeVM viewModel;
 
-        public AuthorizeWindow()
+        public AuthorizeWindow(AuthorizeVM authorizeVM)
         {
             InitializeComponent();
+            viewModel = authorizeVM;
         }
 
-        private void window_Loaded(object sender, RoutedEventArgs e)
-        {
-            viewModel = (DataContext as AuthorizeVM)!;
-        }
 
         private void logInControl_OnChangeMode(object sender, EventArgs e)
         {

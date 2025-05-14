@@ -30,13 +30,36 @@ namespace Messenger.Models.DTO
 
         public static UserClientDTO UserTOUserClient(User user)
         {
-            return new UserClientDTO() 
-            { 
+            return new UserClientDTO()
+            {
                 Id = user.Id,
                 Name = user.Name ?? string.Empty,
                 Login = user.Login,
                 HashedPassword = user.HashedPassword,
                 PicturePath = user.PicturePath ?? string.Empty
+            };
+        }
+
+        public static UserListItemDTO UserTOUserListItem(User user)
+        {
+            return new UserListItemDTO()
+            {
+                Id = user.Id,
+                Name = user.Name ?? string.Empty,
+                Login = user.Login,
+                LastOnline = user.LastOnline ?? DateTime.MinValue,
+                PicturePath = user.PicturePath ?? string.Empty
+            };
+        }
+
+        public static ChatClientDTO ChatTOChatClient(Chat chat, int userId)
+        {
+            return new ChatClientDTO()
+            {
+                Id = chat.Id,
+                ReceiverUserId = chat.User1Id == userId ? chat.User2Id : chat.User1Id,
+                ReceiverUser = UserTOUserListItem(chat.User1Id == userId ? chat.User2 : chat.User1),
+                LastChange = chat.LastChange
             };
         }
     }

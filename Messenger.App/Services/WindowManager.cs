@@ -1,24 +1,22 @@
 ﻿using Messenger.App.ViewModels;
 using Messenger.App.Windows;
 using Messenger.Models;
+using Microsoft.Extensions.DependencyInjection;
 using System.Windows;
 
-namespace Messenger.App.Services.Implementations
+namespace Messenger.App.Services
 {
     public class WindowManager
     {
-        private readonly AuthorizeWindow _authorizeWindow;
-        private readonly ChatWindow _chatWindow;
-
+        private readonly IServiceProvider _serviceProvider;
         private readonly AuthorizeVM _authorizeVM;
         private readonly ChatVM _chatVM;
 
-        private Window? CurrentWindow;
+        private Window? _currentWindow;
 
-        public WindowManager(AuthorizeWindow authorizeWindow, ChatWindow chatWindow, AuthorizeVM authorizeVM, ChatVM chatVM)
+        public WindowManager(IServiceProvider serviceProvider, AuthorizeVM authorizeVM, ChatVM chatVM)
         {
-            _authorizeWindow = authorizeWindow;
-            _chatWindow = chatWindow;
+            _serviceProvider = serviceProvider;
             _authorizeVM = authorizeVM;
             _chatVM = chatVM;
         }
@@ -28,9 +26,6 @@ namespace Messenger.App.Services.Implementations
             // TODO Autoloading
 
             _authorizeVM.OnOpenChatWindow += _authorizeVM_OnOpenChatWindow;
-
-            _authorizeWindow.DataContext = _authorizeVM;
-            _chatWindow.DataContext = _chatVM;
 
             OpenAuthorizeWindow();
         }
@@ -42,16 +37,18 @@ namespace Messenger.App.Services.Implementations
 
         public void OpenAuthorizeWindow()
         {
-            CurrentWindow?.Close();
-            _authorizeWindow.Show();
-            CurrentWindow = _authorizeWindow;
+            var authWindow = _serviceProvider.GetRequiredService<AuthorizeWindow>();
+            authWindow.Show();
+            _currentWindow?.Close();
+            _currentWindow = authWindow;
         }
 
         public void OpenChatWindow()
         {
-            CurrentWindow?.Close();
-            _chatWindow.Show();
-            CurrentWindow = _chatWindow;
+            var chatWindow = _serviceProvider.GetRequiredService<ChatWindow>();
+            chatWindow.Show();
+            _currentWindow?.Close();
+            _currentWindow = chatWindow;
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Messenger.App.Services;
 using Messenger.App.Windows;
-using Messenger.App.Services.Implementations;
 using Messenger.App.ViewModels;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,10 +24,9 @@ namespace Messenger.App
         {
             var services = new ServiceCollection();
 
-            services.AddSingleton<IValidators, DataValidators>();
-            services.AddSingleton<IAuthHandler, DataController>();
-            services.AddSingleton<IMessagesHandler, DataController>();
-            services.AddSingleton<IAPIRequest, APIRequest>();
+            services.AddSingleton<DataValidators>();
+            services.AddSingleton<DataController>();
+            services.AddSingleton<APIRequest>();
             services.AddSingleton<ChatsManager>();
             services.AddHttpClient();
 
@@ -39,8 +37,8 @@ namespace Messenger.App
             services.AddSingleton<IConfiguration>(configuration);
 
             services.AddSingleton<WindowManager>();
-            services.AddSingleton<AuthorizeWindow>();
-            services.AddSingleton<ChatWindow>();
+            services.AddTransient<AuthorizeWindow>();
+            services.AddTransient<ChatWindow>();
 
 
             services.AddSingleton<AuthorizeVM>();
