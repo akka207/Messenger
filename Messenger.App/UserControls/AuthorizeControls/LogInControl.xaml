@@ -13,18 +13,26 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Orientation="Vertical">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Login"/>
-                <TextBox x:Name="loginTextBox" Text="akka"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Password"/>
-                <TextBox x:Name="passwordTextBox" Text="qwerty12"/>
-            </StackPanel>
-            <Button Content="Submit" Click="Button_LogIn_Click"/>
-        </StackPanel>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-        <Button Grid.Row="2" Content="Sign Up?" Click="Button_ChangeMode_Click"/>
+            <TextBlock Text="Login" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40 0 0 0"/>
+            <TextBox x:Name="loginTextBox" Width="130" Text="akka" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20 0 0 0" Padding="10 3" Background="Transparent" BorderBrush="{StaticResource BorderBrush}"/>
+
+            <TextBlock Text="Password" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="40 5 0 0"/>
+            <TextBox x:Name="passwordTextBox" Width="130" Text="qwerty12" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20 5 0 0" Padding="10 3" Background="Transparent" BorderBrush="{StaticResource BorderBrush}"/>
+
+            <Button Content="Submit" Grid.Row="2" Grid.ColumnSpan="2" Width="100" Height="35" Click="Button_LogIn_Click" Margin="0 20 0 0" Background="{StaticResource ShadowedBrush}" BorderBrush="{StaticResource BorderBrush}" />
+        </Grid>
+
+        <Button Width="100" Height="25" Background="{StaticResource ShadowedBrush}" BorderBrush="{StaticResource BorderBrush}" Grid.Row="2" Content="Sign Up?" Click="Button_ChangeMode_Click"/>
     </Grid>
 </UserControl>

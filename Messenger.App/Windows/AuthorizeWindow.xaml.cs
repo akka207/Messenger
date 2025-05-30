@@ -1,4 +1,5 @@
 ﻿using Messenger.App.ViewModels;
+using System.Text;
 using System.Windows;
 
 namespace Messenger.App.Windows
@@ -36,7 +37,7 @@ namespace Messenger.App.Windows
 
             if (user == null)
             {
-                // TODO Check login progress
+                MessageBox.Show("Invalid login or password", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
@@ -48,7 +49,13 @@ namespace Messenger.App.Windows
         private async void signUpControl_OnSignUp(object sender, EventArgs e)
         {
             string password = signUpControl.passwordTextBox.Text;
-            List<string> validationErrors = viewModel.Validators.ValidatePassword(password);
+            string passwordConfirm = signUpControl.passwordConfirmTextBox.Text;
+            string login = signUpControl.loginTextBox.Text;
+
+            List<string> validationErrors = new();
+            validationErrors.AddRange(viewModel.Validators.ValidatePassword(password));
+            validationErrors.AddRange(viewModel.Validators.VerificatePasswords(password, passwordConfirm));
+            validationErrors.AddRange(viewModel.Validators.ValidateLogin(login));
 
             if (validationErrors.Count == 0)
             {
@@ -59,11 +66,9 @@ namespace Messenger.App.Windows
                     Password = password
                 });
 
-                // TODO Check signup progress
-
                 if (user == null)
                 {
-                    // TODO Check login progress
+                    MessageBox.Show("Signing up was unsuccessful (posibly server error)", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
@@ -73,8 +78,27 @@ namespace Messenger.App.Windows
             }
             else
             {
-                // TODO Validation
+                StringBuilder stringBuilder = new();
+                stringBuilder.Append("There some validation errors:\n ");
+                stringBuilder.AppendJoin("\n ", validationErrors);
+
+                MessageBox.Show(stringBuilder.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void ControlBox_OnDrag(object sender, EventArgs e)
+        {
+            DragMove();
+        }
+
+        private void ControlBox_OnClose(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void ControlBox_OnMinimize(object sender, EventArgs e)
+        {
+            WindowState = WindowState.Minimized;
         }
     }
 }

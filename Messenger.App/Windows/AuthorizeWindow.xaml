@@ -5,9 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Messenger.App.Windows"
         xmlns:authControls="clr-namespace:Messenger.App.UserControls.AuthorizeControls"
-        mc:Ignorable="d" x:Name="window"
-        Title="AuthorizeWindow" Height="400" Width="600">
-    <Grid>
+        xmlns:controls="clr-namespace:Messenger.App.UserControls"
+        mc:Ignorable="d" x:Name="window" WindowStyle="None"
+        Title="AuthorizeWindow" MaxHeight="450" MinHeight="450" MaxWidth="600" MinWidth="600" WindowStartupLocation="CenterScreen">
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="0" CornerRadius="0" CaptionHeight="0"/>
+    </WindowChrome.WindowChrome>
+    <Grid Background="{StaticResource BackgroundBrush}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="6*"/>
@@ -18,6 +22,8 @@
             <RowDefinition Height="6*"/>
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
+
+        <controls:ControlBox Grid.Row="0" Grid.ColumnSpan="3" OnDrag="ControlBox_OnDrag" OnClose="ControlBox_OnClose" OnMinimize="ControlBox_OnMinimize"/>
 
         <authControls:LogInControl  x:Name="logInControl"  Grid.Column="1" Grid.Row="1" OnChangeMode="logInControl_OnChangeMode" OnLogIn="logInControl_OnLogIn"/>
         <authControls:SignUpControl x:Name="signUpControl" Grid.Column="1" Grid.Row="1" OnChangeMode="signUpControl_OnChangeMode" OnSignUp="signUpControl_OnSignUp" Visibility="Hidden"/>

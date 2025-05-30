@@ -1,9 +1,4 @@
 ﻿using Messenger.App.DTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Messenger.Models.DTO
 {
@@ -35,8 +30,7 @@ namespace Messenger.Models.DTO
                 Id = user.Id,
                 Name = user.Name ?? string.Empty,
                 Login = user.Login,
-                HashedPassword = user.HashedPassword,
-                PicturePath = user.PicturePath ?? string.Empty
+                HashedPassword = user.HashedPassword
             };
         }
 
@@ -46,9 +40,7 @@ namespace Messenger.Models.DTO
             {
                 Id = user.Id,
                 Name = user.Name ?? string.Empty,
-                Login = user.Login,
-                LastOnline = user.LastOnline ?? DateTime.MinValue,
-                PicturePath = user.PicturePath ?? string.Empty
+                Login = user.Login
             };
         }
 
@@ -59,7 +51,7 @@ namespace Messenger.Models.DTO
                 Id = chat.Id,
                 ReceiverUserId = chat.User1Id == userId ? chat.User2Id : chat.User1Id,
                 ReceiverUser = UserTOUserListItem(chat.User1Id == userId ? chat.User2 : chat.User1),
-                LastChange = chat.LastChange
+                LastUpdate = chat.LastUpdate
             };
         }
     }

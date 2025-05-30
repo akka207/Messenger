@@ -8,6 +8,7 @@ namespace Messenger.App.Services
         public ChatClientDTO CurrentChat { get; private set; } = new ChatClientDTO();
         public UserClientDTO CurrentUser { get; private set; }
 
+
         public void SetCurrentUser(UserClientDTO userClient)
         {
             CurrentUser = userClient;
@@ -16,6 +17,7 @@ namespace Messenger.App.Services
         public void SetCurrentChat(ChatClientDTO chat)
         {
             CurrentChat = chat;
+            MarkChatAsRead(chat);
         }
 
         public Message CreateMessage(string text)
@@ -26,6 +28,16 @@ namespace Messenger.App.Services
                 ChatId = CurrentChat.Id,
                 Text = text
             };
+        }
+
+        public void MarkChatAsUnread(ChatClientDTO chat)
+        {
+            chat.Unread = true;
+        }
+
+        public void MarkChatAsRead(ChatClientDTO chat)
+        {
+            chat.Unread = false;
         }
     }
 }

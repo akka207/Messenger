@@ -13,6 +13,5 @@ namespace Messenger.Models.DTO
         public string Name { get; set; }
         public string Login { get; set; }
         public string HashedPassword { get; set; }
-        public string PicturePath { get; set; }
     }
 }

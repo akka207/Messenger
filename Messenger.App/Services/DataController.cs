@@ -37,5 +37,10 @@ namespace Messenger.App.Services
         {
             return await _apiRequest.GetDataAsync<List<ChatClientDTO>>($"chats/orderedList/{userId}") ?? new();
         }
+
+        public async Task<DateTime> GetChatUpdateStatusAsync(int chatId)
+        {
+            return await _apiRequest.GetDataAsync<DateTime>($"chats/status?chatId={chatId}");
+        }
     }
 }

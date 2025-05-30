@@ -26,7 +26,13 @@ namespace Messenger.App.Services
             // TODO Autoloading
 
             _authorizeVM.OnOpenChatWindow += _authorizeVM_OnOpenChatWindow;
+            _chatVM.OnOpenAuthWindow += _chatVM_OnOpenAuthWindow;
 
+            OpenAuthorizeWindow();
+        }
+
+        private void _chatVM_OnOpenAuthWindow(object? sender, EventArgs e)
+        {
             OpenAuthorizeWindow();
         }
 

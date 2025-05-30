@@ -21,7 +21,7 @@ namespace Messenger.API.Controllers
             _context.Chats
                 .Where(c => c.Id == message.ChatId)
                 .Single()
-                .LastChange = DateTime.UtcNow;
+                .LastUpdate = DateTime.UtcNow;
             message.SentTime = DateTime.UtcNow;
             await _context.Messages.AddAsync(message);
             await _context.SaveChangesAsync();

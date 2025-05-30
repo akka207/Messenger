@@ -4,18 +4,46 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Messenger.App.UserControls.ChatControls"
+             xmlns:convertors="clr-namespace:Messenger.App.Convertors"
              mc:Ignorable="d" x:Name="control"
              d:DesignHeight="100" d:DesignWidth="400">
-    <Grid>
+    <UserControl.Resources>
+        <convertors:BoolToVisibilityConverter x:Key="boolToVisibilityConverter"/>
+    </UserControl.Resources>
+    <Grid ToolTipService.InitialShowDelay="200" ToolTip="{Binding ElementName=control, Path=Chat.ReceiverUser.Name}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="0" Margin="2" BorderThickness="2" BorderBrush="Black" CornerRadius="5"/>
-        <Border Grid.Column="1" Margin="2" BorderThickness="2" BorderBrush="Black" CornerRadius="5"/>
-        
-        <TextBlock Grid.Column="0" Margin="10" Text="Icon" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-        <TextBlock Grid.Column="1" Margin="10" Text="{Binding ElementName=control, Path=UserName}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+        <Border Grid.ColumnSpan="2" Margin="2" BorderThickness="2" Background="{StaticResource ShadowedBrush}" CornerRadius="5" Padding="0 20"/>
+
+        <Image Source="pack://application:,,,/Icons/UserIcon.png" Width="20" Height="20"/>
+
+        <TextBlock Grid.Column="1" Margin="10" Text="{Binding ElementName=control, Path=Chat.ReceiverUser.Login}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+
+        <Button Grid.ColumnSpan="2" Click="Button_Click" Cursor="Hand">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="0">
+                                    <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              RecognizesAccessKey="True"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Style>
+        </Button>
+
+        <Border Width="15" Height="15" Background="Blue" CornerRadius="5" HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="{Binding ElementName=control, Path=Chat.Unread, Converter={StaticResource boolToVisibilityConverter}}"/>
     </Grid>
 </UserControl>

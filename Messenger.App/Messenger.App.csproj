@@ -10,6 +10,11 @@
 
   <ItemGroup>
     <None Remove="appsettings.json" />
+    <None Remove="Fonts\Inter-Light.ttf" />
+    <None Remove="Fonts\Inter-SemiBold.ttf" />
+    <None Remove="Icons\CloseIcon.png" />
+    <None Remove="Icons\MinimizeIcon.png" />
+    <None Remove="Icons\UserIcon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +33,18 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Messenger.Models\Messenger.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Fonts\Inter-Light.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Fonts\Inter-SemiBold.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Icons\CloseIcon.png" />
+    <Resource Include="Icons\MinimizeIcon.png" />
+    <Resource Include="Icons\UserIcon.png" />
   </ItemGroup>
 
 </Project>

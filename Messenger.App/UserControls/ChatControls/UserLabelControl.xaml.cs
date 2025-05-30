@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Messenger.Models.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,17 +11,24 @@ namespace Messenger.App.UserControls.ChatControls
 {
     public partial class UserLabelControl : UserControl
     {
-        public string UserName
+        public ChatClientDTO Chat
         {
-            get { return (string)GetValue(UserNameProperty); }
-            set { SetValue(UserNameProperty, value); }
+            get { return (ChatClientDTO)GetValue(ChatProperty); }
+            set { SetValue(ChatProperty, value); }
         }
-        public static readonly DependencyProperty UserNameProperty =
-            DependencyProperty.Register("UserName", typeof(string), typeof(UserLabelControl), new UIPropertyMetadata(""));
+        public static readonly DependencyProperty ChatProperty =
+            DependencyProperty.Register("Chat", typeof(ChatClientDTO), typeof(UserLabelControl), new UIPropertyMetadata(null));
+
+        public event EventHandler<ChatClientDTO>? OnClick;
 
         public UserLabelControl()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            OnClick?.Invoke(this, Chat);
         }
     }
 }

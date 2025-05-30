@@ -20,11 +20,20 @@ namespace Messenger.API.Controllers
         {
             return await _context.Chats
                 .Where(c => c.User1Id == forUserId || c.User2Id == forUserId)
-                .OrderByDescending(c => c.LastChange)
+                .OrderByDescending(c => c.LastUpdate)
                 .Include(c => c.User1)
                 .Include(c => c.User2)
                 .Select(c => ObjectAdapter.ChatTOChatClient(c, forUserId))
                 .ToListAsync();
+        }
+
+        [HttpGet("status")]
+        public async Task<DateTime> OnGetChatStatusAsync([FromQuery]int chatId)
+        {
+            return (await _context.Chats
+                .Where(c => c.Id == chatId)
+                .SingleAsync())
+                .LastUpdate;
         }
     }
 }

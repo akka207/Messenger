@@ -6,6 +6,8 @@ namespace Messenger.App.ViewModels
 {
     public class ChatVM
     {
+        public event EventHandler? OnOpenAuthWindow;
+
         public readonly DataController DataController;
         public readonly ChatsManager ChatsManager;
 
@@ -15,6 +17,11 @@ namespace Messenger.App.ViewModels
             ChatsManager = chatsManager;
         }
 
+
+        public void OpenAuthWindow()
+        {
+            OnOpenAuthWindow?.Invoke(this, EventArgs.Empty);
+        }
         public async Task<List<ChatClientDTO>> GetChatListItemsAsync()
         {
             var chats = await DataController.GetChatsForUserAsync(ChatsManager.CurrentUser.Id);
@@ -32,6 +39,19 @@ namespace Messenger.App.ViewModels
             var messages = await DataController.GetMessagesAsync(ChatsManager.CurrentChat.Id);
 
             return messages;
+        }
+
+        public async Task<bool> ChatHasNewMessages(ChatClientDTO chat)
+        {
+            var updatedChatStatus = await DataController.GetChatUpdateStatusAsync(chat.Id);
+
+            if (updatedChatStatus > chat.LastUpdate)
+            {
+                chat.LastUpdate = updatedChatStatus;
+                return true;
+            }
+
+            return false;
         }
     }
 }
