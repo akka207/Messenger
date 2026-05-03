@@ -53,5 +53,22 @@ namespace Messenger.App.ViewModels
 
             return false;
         }
+
+        public async Task<bool> CheckAndUpdateChatsAsync(IEnumerable<ChatClientDTO> currentChats)
+        {
+            bool needChatReloads = false;
+            if (currentChats != null)
+            {
+                foreach (var chat in currentChats)
+                {
+                    if (await ChatHasNewMessages(chat) && chat.Id != ChatsManager.CurrentChat?.Id)
+                    {
+                        needChatReloads = true;
+                        chat.Unread = true;
+                    }
+                }
+            }
+            return needChatReloads;
+        }
     }
 }

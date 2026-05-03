@@ -54,24 +54,23 @@ namespace Messenger.App.Windows
 
         private async void MessageCheckTimer_Tick(object sender, EventArgs e)
         {
-            bool needChatReloads = false;
-            if (chats != null)
+            messageCheckTimer.Stop();
+
+            try
             {
-                foreach (var chat in chats)
-                {
-                    if (await viewModel.ChatHasNewMessages(chat) && chat.Id != viewModel.ChatsManager.CurrentChat.Id)
-                    {
-                        needChatReloads = true;
-                        chat.Unread = true;
-                    }
-                }
+                bool needChatReloads = await viewModel.CheckAndUpdateChatsAsync(chats);
+
                 if (needChatReloads)
                 {
                     await UpdateChatsList();
                 }
-            }
 
-            await LoadMessages();
+                await LoadMessages();
+            }
+            finally
+            {
+                messageCheckTimer.Start();
+            }
         }
 
         private async void sendButton_Click(object sender, RoutedEventArgs e)
