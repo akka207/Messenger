@@ -6,6 +6,11 @@ namespace Messenger.App.Windows
 {
     public partial class AuthorizeWindow : Window
     {
+        private const string ErrorCaption = "Error";
+        private const string InvalidLoginMessage = "Invalid login or password.";
+        private const string SignUpErrorMessage = "Signing up was unsuccessful (possibly server error).";
+        private const string ValidationErrorMessagePrefix = "There are some validation errors:\n ";
+
         private readonly AuthorizeVM viewModel;
 
         public AuthorizeWindow(AuthorizeVM authorizeVM)
@@ -37,7 +42,7 @@ namespace Messenger.App.Windows
 
             if (user == null)
             {
-                MessageBox.Show("Invalid login or password", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(InvalidLoginMessage, ErrorCaption, MessageBoxButton.OK, MessageBoxImage.Error);
             }
             else
             {
@@ -68,7 +73,7 @@ namespace Messenger.App.Windows
 
                 if (user == null)
                 {
-                    MessageBox.Show("Signing up was unsuccessful (posibly server error)", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(SignUpErrorMessage, ErrorCaption, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 else
                 {
@@ -79,10 +84,10 @@ namespace Messenger.App.Windows
             else
             {
                 StringBuilder stringBuilder = new();
-                stringBuilder.Append("There some validation errors:\n ");
+                stringBuilder.Append(ValidationErrorMessagePrefix);
                 stringBuilder.AppendJoin("\n ", validationErrors);
 
-                MessageBox.Show(stringBuilder.ToString(), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(stringBuilder.ToString(), ErrorCaption, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
