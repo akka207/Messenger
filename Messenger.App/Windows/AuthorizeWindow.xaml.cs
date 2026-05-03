@@ -52,10 +52,7 @@ namespace Messenger.App.Windows
             string passwordConfirm = signUpControl.passwordConfirmTextBox.Text;
             string login = signUpControl.loginTextBox.Text;
 
-            List<string> validationErrors = new();
-            validationErrors.AddRange(viewModel.Validators.ValidatePassword(password));
-            validationErrors.AddRange(viewModel.Validators.VerificatePasswords(password, passwordConfirm));
-            validationErrors.AddRange(viewModel.Validators.ValidateLogin(login));
+            List<string> validationErrors = viewModel.ValidateSignUpData(login, password, passwordConfirm);
 
             if (validationErrors.Count == 0)
             {

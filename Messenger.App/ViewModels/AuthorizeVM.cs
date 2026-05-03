@@ -21,5 +21,14 @@ namespace Messenger.App.ViewModels
         {
             OnOpenChatWindow?.Invoke(this, EventArgs.Empty);
         }
+
+        public List<string> ValidateSignUpData(string login, string password, string passwordConfirm)
+        {
+            List<string> validationErrors = new();
+            validationErrors.AddRange(Validators.ValidatePassword(password));
+            validationErrors.AddRange(Validators.VerificatePasswords(password, passwordConfirm));
+            validationErrors.AddRange(Validators.ValidateLogin(login));
+            return validationErrors;
+        }
     }
 }
